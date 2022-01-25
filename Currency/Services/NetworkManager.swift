@@ -27,7 +27,7 @@ class NetworkManager {
                 let exchange = dateExchange.DataCurrency
                 complition(dateExchange, exchange)
             } catch let error {
-                print(error)
+                print("Ошибка получения данных:", error)
             }
         }.resume()
     }

@@ -18,13 +18,16 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        dataExchanges.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyMainViewCell
+        let data = dataExchanges[indexPath.row]
         
-        
+        cell.labelCurrencyMain.text = data.CharCode
+        cell.labelDescriptionMain.text = data.Name
+        cell.textFieldMain.text = string(for: data.Value ?? 0)
         
         return cell
     }
@@ -35,6 +38,10 @@ class MainViewController: UITableViewController {
             self.tableView.reloadData()
             self.title = "Курсы на " + date.Timestamp
         }
+    }
+    
+    private func string(for data: Double) -> String {
+        String(format: "%2.f", data)
     }
     
 

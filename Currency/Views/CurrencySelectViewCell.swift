@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrencyViewCell: UITableViewCell {
+class CurrencySelectViewCell: UITableViewCell {
     
     @IBOutlet weak var imageFlag: UIImageView!
     @IBOutlet weak var labelAbbreviation: UILabel!
