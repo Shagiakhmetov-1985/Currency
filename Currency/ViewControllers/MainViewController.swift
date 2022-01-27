@@ -25,23 +25,25 @@ class MainViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyMainViewCell
         let data = dataExchanges[indexPath.row]
         
-        cell.labelCurrencyMain.text = data.CharCode
-        cell.labelDescriptionMain.text = data.Name
+        cell.labelCurrency.text = data.CharCode
+        cell.labelDescription.text = data.Name
         cell.textFieldMain.text = string(for: data.Value ?? 0)
         
         return cell
     }
     
-    private func fetchData(from url: String?) {
+    private func fetchData(from url: String) {
         NetworkManager.shared.fetchData(from: url) { date, exchange in
-            self.dataExchanges = exchange
-            self.tableView.reloadData()
-            self.title = "Курсы на " + date.Timestamp
+            DispatchQueue.main.async {
+                self.dataExchanges = exchange
+                self.tableView.reloadData()
+                self.title = "Курсы на " + date.Date
+            }
         }
     }
     
     private func string(for data: Double) -> String {
-        String(format: "%2.f", data)
+        String(format: "%.2f", data)
     }
     
 

@@ -31,18 +31,21 @@
                                             </constraints>
                                         </imageView>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PJF-ho-XYJ">
-                                            <rect key="frame" x="174" y="8" width="220" height="34"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                            <rect key="frame" x="304" y="8" width="90" height="41"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="qIm-00-35m"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bN-jw-fU7">
-                                            <rect key="frame" x="174" y="26.5" width="220" height="12"/>
+                                            <rect key="frame" x="180" y="26.5" width="214" height="12"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" systemColor="systemGray2Color"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhN-eE-E4g">
-                                            <rect key="frame" x="84" y="8.5" width="85" height="27"/>
+                                            <rect key="frame" x="84" y="8.5" width="90" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -52,11 +55,10 @@
                                         <constraint firstItem="hjE-TL-ppR" firstAttribute="leading" secondItem="C0r-jP-APu" secondAttribute="leading" constant="20" symbolic="YES" id="1AL-1h-Bhw"/>
                                         <constraint firstAttribute="trailing" secondItem="PJF-ho-XYJ" secondAttribute="trailing" constant="20" symbolic="YES" id="AHN-vS-bJQ"/>
                                         <constraint firstItem="hjE-TL-ppR" firstAttribute="centerY" secondItem="C0r-jP-APu" secondAttribute="centerY" id="Bkq-6B-BAu"/>
-                                        <constraint firstAttribute="trailing" secondItem="JhN-eE-E4g" secondAttribute="trailing" constant="245" id="Wlu-Gl-1ck"/>
-                                        <constraint firstItem="0bN-jw-fU7" firstAttribute="leading" secondItem="PJF-ho-XYJ" secondAttribute="leading" id="d2G-0t-DUM"/>
+                                        <constraint firstAttribute="trailing" secondItem="JhN-eE-E4g" secondAttribute="trailing" constant="240" id="Wlu-Gl-1ck"/>
                                         <constraint firstItem="0bN-jw-fU7" firstAttribute="trailing" secondItem="PJF-ho-XYJ" secondAttribute="trailing" id="hnf-cT-AWm"/>
                                         <constraint firstItem="PJF-ho-XYJ" firstAttribute="top" secondItem="C0r-jP-APu" secondAttribute="top" constant="8" id="j6V-aL-ZK4"/>
-                                        <constraint firstItem="0bN-jw-fU7" firstAttribute="leading" secondItem="C0r-jP-APu" secondAttribute="leading" constant="174" id="qbX-Kh-K05"/>
+                                        <constraint firstItem="0bN-jw-fU7" firstAttribute="leading" secondItem="C0r-jP-APu" secondAttribute="leading" constant="180" id="qbX-Kh-K05"/>
                                         <constraint firstAttribute="bottom" secondItem="0bN-jw-fU7" secondAttribute="bottom" constant="5" id="ra7-7a-Nbl"/>
                                         <constraint firstItem="JhN-eE-E4g" firstAttribute="centerY" secondItem="C0r-jP-APu" secondAttribute="centerY" id="xL4-mV-mme"/>
                                         <constraint firstItem="JhN-eE-E4g" firstAttribute="leading" secondItem="hjE-TL-ppR" secondAttribute="trailing" constant="11" id="yqh-YY-O7v"/>
@@ -64,8 +66,8 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imageViewMain" destination="hjE-TL-ppR" id="XWT-AN-doG"/>
-                                    <outlet property="labelCurrencyMain" destination="0bN-jw-fU7" id="6C0-kO-4IW"/>
-                                    <outlet property="labelDescriptionMain" destination="0bN-jw-fU7" id="qbs-x5-pBG"/>
+                                    <outlet property="labelCurrency" destination="JhN-eE-E4g" id="Ye3-gl-aAx"/>
+                                    <outlet property="labelDescription" destination="0bN-jw-fU7" id="qbs-x5-pBG"/>
                                     <outlet property="textFieldMain" destination="PJF-ho-XYJ" id="Z94-Af-OZ2"/>
                                 </connections>
                             </tableViewCell>

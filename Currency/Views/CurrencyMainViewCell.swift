@@ -10,8 +10,8 @@ import UIKit
 class CurrencyMainViewCell: UITableViewCell {
     
     @IBOutlet weak var imageViewMain: UIImageView!
-    @IBOutlet weak var labelCurrencyMain: UILabel!
-    @IBOutlet weak var labelDescriptionMain: UILabel!
+    @IBOutlet weak var labelCurrency: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var textFieldMain: UITextField!
     
 }

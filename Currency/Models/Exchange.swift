@@ -8,12 +8,12 @@
 import Foundation
 
 struct Exchange: Decodable {
-    let Timestamp: String
-    var DataCurrency: [DataCurrency]
+    let Date: String
+    var Valute: [String: DataCurrency]
 }
 
 struct DataCurrency: Decodable {
-    let NumCode: Int?
+    let NumCode: String?
     let CharCode: String?
     let Nominal: Int?
     let Name: String?
