@@ -7,9 +7,10 @@
 
 import UIKit
 
-class SelectTableViewController: UITableViewController {
+class SelectNewValuteViewController: UITableViewController {
+    var delegate: AddNewValuteDelegate!
     
-    private var selectList = Model.getSelectList()
+    private var selectList = Valute.getSelectList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,4 +34,15 @@ class SelectTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = selectList[indexPath.row]
+        let valute = Valute(flag: data.flag, abbreviation: data.abbreviation, name: data.name)
+        delegate.saveValute(value: valute)
+        dismiss(animated: true)
+    }
+    
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return false
+//    }
 }

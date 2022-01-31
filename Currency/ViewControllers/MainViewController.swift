@@ -7,14 +7,23 @@
 
 import UIKit
 
+protocol AddNewValuteDelegate {
+    func saveValute(value: Valute)
+}
+
 class MainViewController: UITableViewController {
     
-    private var dataExchanges: [DataCurrency] = []
+    private var dataExchanges: [Valute] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 60
-        fetchData(from: URLS.currencyapi.rawValue)
+//        fetchData(from: URLS.currencyapi.rawValue)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let newValuteVC = segue.destination as! SelectNewValuteViewController
+        newValuteVC.delegate = self
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,17 +34,32 @@ class MainViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyMainViewCell
         let data = dataExchanges[indexPath.row]
         
-        cell.labelCurrency.text = data.CharCode
-        cell.labelDescription.text = data.Name
-        cell.textFieldMain.text = string(for: data.Value ?? 0)
+        cell.imageViewMain.image = UIImage(named: data.flag)
+        cell.imageViewMain.layer.cornerRadius = 5
+        cell.imageViewMain.layer.borderWidth = 2
+        cell.imageViewMain.layer.borderColor = CGColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)
+        cell.labelCurrency.text = data.abbreviation
+        cell.labelDescription.text = data.name
+//        cell.textFieldMain.text = string(for: data.Value ?? 0)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataExchanges.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
     
     private func fetchData(from url: String) {
         NetworkManager.shared.fetchData(from: url) { date, exchange in
             DispatchQueue.main.async {
-                self.dataExchanges = exchange
+//                self.dataExchanges = exchange
                 self.tableView.reloadData()
                 self.title = "Курсы на " + date.Date
             }
@@ -45,27 +69,6 @@ class MainViewController: UITableViewController {
     private func string(for data: Double) -> String {
         String(format: "%.2f", data)
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -81,4 +84,11 @@ class MainViewController: UITableViewController {
         return true
     }
     */
+}
+
+extension MainViewController: AddNewValuteDelegate {
+    func saveValute(value: Valute) {
+        dataExchanges.append(value)
+        tableView.reloadData()
+    }
 }

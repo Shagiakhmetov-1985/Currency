@@ -14,7 +14,7 @@
 		C30EF06A279C080F00CAFD65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30EF068279C080F00CAFD65 /* LaunchScreen.storyboard */; };
 		C35F23EF279FDED800283FDF /* CurrencyMainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F23EE279FDED800283FDF /* CurrencyMainViewCell.swift */; };
 		C37D0A1C279E9914006F6EB9 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D0A1B279E9914006F6EB9 /* Exchange.swift */; };
-		C3AA491E279D58340030A0F6 /* SelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA491D279D58340030A0F6 /* SelectTableViewController.swift */; };
+		C3AA491E279D58340030A0F6 /* SelectNewValuteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA491D279D58340030A0F6 /* SelectNewValuteViewController.swift */; };
 		C3AA4920279D596B0030A0F6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA491F279D596B0030A0F6 /* NetworkManager.swift */; };
 		C3AA4924279D59E70030A0F6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA4923279D59E70030A0F6 /* MainViewController.swift */; };
 		C3AA4928279DA7540030A0F6 /* CurrencySelectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA4927279DA7540030A0F6 /* CurrencySelectViewCell.swift */; };
@@ -32,7 +32,7 @@
 		C30EF06B279C080F00CAFD65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C35F23EE279FDED800283FDF /* CurrencyMainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMainViewCell.swift; sourceTree = "<group>"; };
 		C37D0A1B279E9914006F6EB9 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
-		C3AA491D279D58340030A0F6 /* SelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTableViewController.swift; sourceTree = "<group>"; };
+		C3AA491D279D58340030A0F6 /* SelectNewValuteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewValuteViewController.swift; sourceTree = "<group>"; };
 		C3AA491F279D596B0030A0F6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C3AA4923279D59E70030A0F6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C3AA4927279DA7540030A0F6 /* CurrencySelectViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectViewCell.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				C3AA4923279D59E70030A0F6 /* MainViewController.swift */,
-				C3AA491D279D58340030A0F6 /* SelectTableViewController.swift */,
+				C3AA491D279D58340030A0F6 /* SelectNewValuteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -218,7 +218,7 @@
 				C3AA4924279D59E70030A0F6 /* MainViewController.swift in Sources */,
 				C3AA492A279DA9140030A0F6 /* DataManager.swift in Sources */,
 				C35F23EF279FDED800283FDF /* CurrencyMainViewCell.swift in Sources */,
-				C3AA491E279D58340030A0F6 /* SelectTableViewController.swift in Sources */,
+				C3AA491E279D58340030A0F6 /* SelectNewValuteViewController.swift in Sources */,
 				C3AA4928279DA7540030A0F6 /* CurrencySelectViewCell.swift in Sources */,
 				C3AA4920279D596B0030A0F6 /* NetworkManager.swift in Sources */,
 				C30EF05E279C080E00CAFD65 /* AppDelegate.swift in Sources */,

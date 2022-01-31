@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="466.66666666666669" y="133.92857142857142"/>
         </scene>
-        <!--Select Table View Controller-->
+        <!--Select New Valute View Controller-->
         <scene sceneID="I1T-3m-MDl">
             <objects>
-                <tableViewController id="b7j-W0-voJ" customClass="SelectTableViewController" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="b7j-W0-voJ" customClass="SelectNewValuteViewController" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ggY-zd-w8Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,20 +129,30 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-0z-b8S">
+                                            <rect key="frame" x="364" y="7" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="6jE-fA-9g2"/>
+                                                <constraint firstAttribute="width" constant="30" id="Jwi-RJ-D00"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="spD-8k-42l" firstAttribute="top" secondItem="Cn9-Db-ro3" secondAttribute="top" constant="4" id="5al-B7-xg1"/>
+                                        <constraint firstAttribute="trailing" secondItem="bjh-0z-b8S" secondAttribute="trailing" constant="20" symbolic="YES" id="6os-4x-W3f"/>
                                         <constraint firstItem="3z4-0k-cYI" firstAttribute="leading" secondItem="N9h-vv-t0S" secondAttribute="trailing" constant="8" symbolic="YES" id="IUa-bg-6WJ"/>
                                         <constraint firstItem="3z4-0k-cYI" firstAttribute="bottom" secondItem="N9h-vv-t0S" secondAttribute="bottom" id="Ry2-XZ-QbM"/>
                                         <constraint firstItem="spD-8k-42l" firstAttribute="leading" secondItem="N9h-vv-t0S" secondAttribute="trailing" constant="8" symbolic="YES" id="WsL-W0-GD3"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="spD-8k-42l" secondAttribute="trailing" constant="262.5" id="gJh-8z-8Vr"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="N9h-vv-t0S" secondAttribute="trailing" constant="306" id="h0g-xp-elm"/>
                                         <constraint firstItem="N9h-vv-t0S" firstAttribute="centerY" secondItem="Cn9-Db-ro3" secondAttribute="centerY" id="huR-Jj-xe7"/>
+                                        <constraint firstItem="bjh-0z-b8S" firstAttribute="centerY" secondItem="Cn9-Db-ro3" secondAttribute="centerY" id="p8c-K2-4ms"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3z4-0k-cYI" secondAttribute="trailing" constant="68" id="siZ-VZ-GI6"/>
                                         <constraint firstItem="N9h-vv-t0S" firstAttribute="leading" secondItem="Cn9-Db-ro3" secondAttribute="leading" constant="16" id="ury-RS-gFq"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="imageCheckmark" destination="bjh-0z-b8S" id="ZOn-ZC-25Y"/>
                                     <outlet property="imageFlag" destination="N9h-vv-t0S" id="GMG-JA-qb3"/>
                                     <outlet property="labelAbbreviation" destination="spD-8k-42l" id="GH1-ca-Oyw"/>
                                     <outlet property="labelCountry" destination="3z4-0k-cYI" id="Evp-pA-x4q"/>
@@ -157,7 +167,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifo-0u-Rbg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1365.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1365.217391304348" y="133.25892857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hgi-29-qyi">
