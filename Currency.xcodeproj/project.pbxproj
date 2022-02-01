@@ -12,6 +12,7 @@
 		C30EF065279C080E00CAFD65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30EF063279C080E00CAFD65 /* Main.storyboard */; };
 		C30EF067279C080F00CAFD65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30EF066279C080F00CAFD65 /* Assets.xcassets */; };
 		C30EF06A279C080F00CAFD65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30EF068279C080F00CAFD65 /* LaunchScreen.storyboard */; };
+		C33BFD9727A989BD00EC3AF2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33BFD9627A989BD00EC3AF2 /* StorageManager.swift */; };
 		C35F23EF279FDED800283FDF /* CurrencyMainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35F23EE279FDED800283FDF /* CurrencyMainViewCell.swift */; };
 		C37D0A1C279E9914006F6EB9 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37D0A1B279E9914006F6EB9 /* Exchange.swift */; };
 		C3AA491E279D58340030A0F6 /* SelectNewValuteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA491D279D58340030A0F6 /* SelectNewValuteViewController.swift */; };
@@ -30,6 +31,7 @@
 		C30EF066279C080F00CAFD65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C30EF069279C080F00CAFD65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C30EF06B279C080F00CAFD65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C33BFD9627A989BD00EC3AF2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C35F23EE279FDED800283FDF /* CurrencyMainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMainViewCell.swift; sourceTree = "<group>"; };
 		C37D0A1B279E9914006F6EB9 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		C3AA491D279D58340030A0F6 /* SelectNewValuteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectNewValuteViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				C3AA491F279D596B0030A0F6 /* NetworkManager.swift */,
+				C33BFD9627A989BD00EC3AF2 /* StorageManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				C3AA4924279D59E70030A0F6 /* MainViewController.swift in Sources */,
 				C3AA492A279DA9140030A0F6 /* DataManager.swift in Sources */,
+				C33BFD9727A989BD00EC3AF2 /* StorageManager.swift in Sources */,
 				C35F23EF279FDED800283FDF /* CurrencyMainViewCell.swift in Sources */,
 				C3AA491E279D58340030A0F6 /* SelectNewValuteViewController.swift in Sources */,
 				C3AA4928279DA7540030A0F6 /* CurrencySelectViewCell.swift in Sources */,

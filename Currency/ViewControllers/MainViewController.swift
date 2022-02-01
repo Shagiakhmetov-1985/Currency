@@ -18,6 +18,7 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 60
+        dataExchanges = StorageManager.shared.fetchValutes()
 //        fetchData(from: URLS.currencyapi.rawValue)
     }
     
@@ -51,6 +52,7 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            StorageManager.shared.deleteValute(valute: indexPath.row)
             dataExchanges.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }

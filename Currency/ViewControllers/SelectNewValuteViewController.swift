@@ -11,10 +11,12 @@ class SelectNewValuteViewController: UITableViewController {
     var delegate: AddNewValuteDelegate!
     
     private var selectList = Valute.getSelectList()
+//    private var checkList: [Valute] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 40
+//        checkList = StorageManager.shared.fetchValutes()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +33,7 @@ class SelectNewValuteViewController: UITableViewController {
         cell.imageFlag.layer.borderColor = CGColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)
         cell.labelAbbreviation.text = data.abbreviation
         cell.labelCountry.text = data.name
+//        cell.imageCheckmark.image = UIImage(systemName: "checkmark")
         
         return cell
     }
@@ -38,6 +41,7 @@ class SelectNewValuteViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = selectList[indexPath.row]
         let valute = Valute(flag: data.flag, abbreviation: data.abbreviation, name: data.name)
+        StorageManager.shared.saveValute(valute: valute)
         delegate.saveValute(value: valute)
         dismiss(animated: true)
     }

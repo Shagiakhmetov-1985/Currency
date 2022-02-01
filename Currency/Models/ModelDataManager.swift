@@ -5,7 +5,7 @@
 //  Created by Marat Shagiakhmetov on 23.01.2022.
 //
 
-struct Valute {
+struct Valute: Codable {
     let flag: String
     let abbreviation: String
     let name: String
@@ -27,6 +27,17 @@ extension Valute {
                                    name: names[index]
             )
             dataManager.append(selectList)
+        }
+        
+        return dataManager
+    }
+    
+    static func checkmarkList() -> [String] {
+        var dataManager: [String] = []
+        let checkmark = DataManager.shared.check
+        
+        for index in checkmark {
+            dataManager.append(index)
         }
         
         return dataManager
