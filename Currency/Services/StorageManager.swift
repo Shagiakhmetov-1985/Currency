@@ -12,6 +12,7 @@ class StorageManager {
     
     private let userDefaults = UserDefaults.standard
     private let valuteKey = "valutes"
+    private let selectValuteKey = "select"
     
     private init() {}
     
@@ -31,6 +32,19 @@ class StorageManager {
     
     func fetchValutes() -> [Valute] {
         guard let data = userDefaults.object(forKey: valuteKey) as? Data else { return [] }
+        guard let valutes = try? JSONDecoder().decode([Valute].self, from: data) else { return [] }
+        return valutes
+    }
+    
+    func saveSelectValutes(selectValutes: [Valute]) {
+        var valutes = fetchSelectValutes()
+        valutes = selectValutes
+        guard let data = try? JSONEncoder().encode(valutes) else { return }
+        userDefaults.set(data, forKey: selectValuteKey)
+    }
+    
+    func fetchSelectValutes() -> [Valute] {
+        guard let data = userDefaults.object(forKey: selectValuteKey) as? Data else { return [] }
         guard let valutes = try? JSONDecoder().decode([Valute].self, from: data) else { return [] }
         return valutes
     }

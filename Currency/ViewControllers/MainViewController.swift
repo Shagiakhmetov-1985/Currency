@@ -52,9 +52,20 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let data = dataExchanges[indexPath.row]
             StorageManager.shared.deleteValute(valute: indexPath.row)
             dataExchanges.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            deleteCheckmark(valute: data)
+        }
+    }
+    
+    private func deleteCheckmark(valute: Valute) {
+        var valutes = StorageManager.shared.fetchSelectValutes()
+        let flags = valutes.map({ $0.flag })
+        if let index = flags.firstIndex(of: valute.flag) {
+            valutes[index].check = ""
+            StorageManager.shared.saveSelectValutes(selectValutes: valutes)
         }
     }
     

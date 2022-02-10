@@ -13,5 +13,5 @@ class CurrencySelectViewCell: UITableViewCell {
     @IBOutlet weak var labelAbbreviation: UILabel!
     @IBOutlet weak var labelCountry: UILabel!
     @IBOutlet weak var imageCheckmark: UIImageView!
-    
+
 }

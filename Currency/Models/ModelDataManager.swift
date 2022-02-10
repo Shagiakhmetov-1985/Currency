@@ -9,6 +9,7 @@ struct Valute: Codable {
     let flag: String
     let abbreviation: String
     let name: String
+    var check: String
 }
 
 extension Valute {
@@ -18,26 +19,17 @@ extension Valute {
         let flags = DataManager.shared.flag
         let abbreviations = DataManager.shared.abbreviation
         let names = DataManager.shared.name
+        let check = DataManager.shared.check
         
-        let iteration = min(flags.count, abbreviations.count, names.count)
+        let iteration = min(flags.count, abbreviations.count, names.count, check.count)
         
         for index in 0..<iteration {
             let selectList = Valute(flag: flags[index],
-                                   abbreviation: abbreviations[index],
-                                   name: names[index]
+                                    abbreviation: abbreviations[index],
+                                    name: names[index],
+                                    check: check[index]
             )
             dataManager.append(selectList)
-        }
-        
-        return dataManager
-    }
-    
-    static func checkmarkList() -> [String] {
-        var dataManager: [String] = []
-        let checkmark = DataManager.shared.check
-        
-        for index in checkmark {
-            dataManager.append(index)
         }
         
         return dataManager
