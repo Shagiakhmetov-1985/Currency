@@ -11,15 +11,17 @@ protocol AddNewValuteDelegate {
     func saveValute(value: Valute)
 }
 
-class MainViewController: UITableViewController {
+class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
     
     private var dataExchanges: [Valute] = []
+    private var dataFromAPI: [DataCurrency] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 60
         dataExchanges = StorageManager.shared.fetchValutes()
-//        fetchData(from: URLS.currencyapi.rawValue)
+        fetchData(from: URLS.currencyapi.rawValue)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(sender:))))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,7 +34,7 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyMainViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrentDataViewCell
         let data = dataExchanges[indexPath.row]
         
         cell.imageViewMain.image = UIImage(named: data.flag)
@@ -41,7 +43,10 @@ class MainViewController: UITableViewController {
         cell.imageViewMain.layer.borderColor = CGColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)
         cell.labelCurrency.text = data.abbreviation
         cell.labelDescription.text = data.name
-//        cell.textFieldMain.text = string(for: data.Value ?? 0)
+//        cell.textFieldMain.tag = indexPath.row
+        cell.textFieldMain.delegate = self
+        cell.textFieldMain.addTarget(self, action: #selector(buttonDoneOnKeyboard(sender:)), for: UIControl.Event.editingDidBegin)
+        cell.textFieldMain.text = string(for: dataOfValute(valute: data))
         
         return cell
     }
@@ -70,11 +75,14 @@ class MainViewController: UITableViewController {
     }
     
     private func fetchData(from url: String) {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YYYY"
         NetworkManager.shared.fetchData(from: url) { date, exchange in
             DispatchQueue.main.async {
-//                self.dataExchanges = exchange
+                self.dataFromAPI = exchange
                 self.tableView.reloadData()
-                self.title = "Курсы на " + date.Date
+                self.title = "Курсы на " + formatter.string(from: currentDate)
             }
         }
     }
@@ -82,7 +90,45 @@ class MainViewController: UITableViewController {
     private func string(for data: Double) -> String {
         String(format: "%.2f", data)
     }
-
+    
+    private func dataOfValute(valute: Valute) -> Double {
+        let valutes = dataFromAPI
+        let charCode = valutes.map({ $0.CharCode })
+        guard let index = charCode.firstIndex(of: valute.abbreviation) else { return 0 }
+        guard let data = valutes[index].Value else { return 0 }
+        return data
+    }
+    
+    @objc func didTapDone() {
+        view.endEditing(true)
+    }
+    
+    @objc func buttonDoneOnKeyboard(sender: UITextField) {
+        let keyboardToolbar = UIToolbar()
+        sender.inputAccessoryView = keyboardToolbar
+        keyboardToolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(didTapDone)
+        )
+        
+        let flexBarButton = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        keyboardToolbar.items = [flexBarButton, doneButton]
+    }
+    
+    @objc func dismissKeyboard(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+        sender.cancelsTouchesInView = false
+    }
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -99,9 +145,18 @@ class MainViewController: UITableViewController {
     */
 }
 
-extension MainViewController: AddNewValuteDelegate {
+extension CurrentDataViewController: AddNewValuteDelegate {
     func saveValute(value: Valute) {
         dataExchanges.append(value)
         tableView.reloadData()
+    }
+}
+
+extension CurrentDataViewController {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text, let rangeOfTextToReplace = Range(range, in: text) else { return false }
+        let substringToReplace = text[rangeOfTextToReplace]
+        let count = text.count - substringToReplace.count + string.count
+        return count <= 9
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrencyMainViewCell: UITableViewCell {
+class CurrentDataViewCell: UITableViewCell {
     
     @IBOutlet weak var imageViewMain: UIImageView!
     @IBOutlet weak var labelCurrency: UILabel!
