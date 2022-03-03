@@ -43,10 +43,12 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
         cell.imageViewMain.layer.borderColor = CGColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)
         cell.labelCurrency.text = data.abbreviation
         cell.labelDescription.text = data.name
-//        cell.textFieldMain.tag = indexPath.row
         cell.textFieldMain.delegate = self
         cell.textFieldMain.addTarget(self, action: #selector(buttonDoneOnKeyboard(sender:)), for: UIControl.Event.editingDidBegin)
-        cell.textFieldMain.text = string(for: dataOfValute(valute: data))
+        cell.textFieldMain.tag = indexPath.row
+        cell.textFieldMain.addTarget(self, action: #selector(dataEntry(sender:)), for: UIControl.Event.editingChanged)
+        cell.textFieldMain.text = string(for: data.currentValue)
+        cell.textFieldMain.addTarget(self, action: #selector(setupString(sender:)), for: UIControl.Event.editingDidEnd)
         
         return cell
     }
@@ -91,12 +93,94 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
         String(format: "%.2f", data)
     }
     
-    private func dataOfValute(valute: Valute) -> Double {
-        let valutes = dataFromAPI
-        let charCode = valutes.map({ $0.CharCode })
-        guard let index = charCode.firstIndex(of: valute.abbreviation) else { return 0 }
-        guard let data = valutes[index].Value else { return 0 }
+    private func currentValueSetup(text: String) -> Double {
+        guard let data = Double(text) else { return 0 }
         return data
+    }
+    
+    private func calculationCurrentValue(firstValue: Double, otherValue: Double, multiplier: Double) -> Double {
+        if firstValue == 0 {
+            let calculation = multiplier / otherValue
+            return calculation
+        } else {
+            let calculation = (firstValue / otherValue) * multiplier
+            return calculation
+        }
+    }
+    
+    private func calculationRussianValue(value: Double, multiplier: Double) -> Double {
+        let calculation = value * multiplier
+        return calculation
+    }
+    
+    private func setupDataTapCell(index: Int, textFieldText: String) {
+        let charCodeAPI = dataFromAPI.map({ $0.CharCode })
+        
+        switch dataExchanges[index].flag {
+        
+        case "russia":
+            
+            dataExchanges[index].currentValue = currentValueSetup(text: textFieldText)
+            
+        default:
+            
+            guard let indexCharCode = charCodeAPI.firstIndex(of: dataExchanges[index].abbreviation) else { return }
+            guard let nominal = dataFromAPI[indexCharCode].Nominal else { return }
+            guard let value = dataFromAPI[indexCharCode].Value else { return }
+            
+            dataExchanges[index].nominal = nominal
+            dataExchanges[index].value = value
+            dataExchanges[index].currentValue = currentValueSetup(text: textFieldText)
+            
+        }
+    }
+    
+    private func setupDataOtherCells(index: Int) {
+        let charCodeAPI = dataFromAPI.map({ $0.CharCode })
+        let iterration = dataExchanges.count
+        for indexFromMain in 0..<iterration {
+            
+            switch dataExchanges[indexFromMain].flag {
+
+            case let flag where !(flag == dataExchanges[index].flag) && !(flag == "russia"):
+                
+                guard let indexCharCode = charCodeAPI.firstIndex(of: dataExchanges[indexFromMain].abbreviation) else { return }
+                guard let nominal = dataFromAPI[indexCharCode].Nominal else { return }
+                guard let value = dataFromAPI[indexCharCode].Value else { return }
+                let currentValue = calculationCurrentValue(
+                    firstValue: dataExchanges[index].value,
+                    otherValue: value,
+                    multiplier: dataExchanges[index].currentValue
+                )
+                
+                dataExchanges[indexFromMain].nominal = nominal
+                dataExchanges[indexFromMain].value = value
+                dataExchanges[indexFromMain].currentValue = currentValue
+
+            case let flag where !(flag == dataExchanges[index].flag) && flag == "russia":
+                
+                guard let indexCharCode = charCodeAPI.firstIndex(of: dataExchanges[index].abbreviation) else { return }
+                guard let value = dataFromAPI[indexCharCode].Value else { return }
+                let currentValue = calculationRussianValue(
+                    value: value,
+                    multiplier: dataExchanges[index].currentValue
+                )
+                
+                dataExchanges[indexFromMain].currentValue = currentValue
+
+            default: break
+                
+            }
+        }
+    }
+    
+    private func reloadDataCells(index: Int) {
+        let count = dataExchanges.count
+        for tag in 0..<count {
+            if !(tag == index) {
+                tableView.reloadRows(at: [IndexPath.init(row: tag, section: 0)], with: .none)
+            }
+        }
     }
     
     @objc func didTapDone() {
@@ -129,20 +213,16 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
         sender.cancelsTouchesInView = false
     }
     
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    @objc func dataEntry(sender: UITextField) {
+        setupDataTapCell(index: sender.tag, textFieldText: sender.text ?? "")
+        setupDataOtherCells(index: sender.tag)
+        StorageManager.shared.rewriteValutes(valutes: dataExchanges)
+        reloadDataCells(index: sender.tag)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    @objc func setupString(sender: UITextField) {
+        sender.text = string(for: dataExchanges[sender.tag].currentValue)
     }
-    */
 }
 
 extension CurrentDataViewController: AddNewValuteDelegate {

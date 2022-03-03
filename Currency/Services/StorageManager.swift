@@ -30,6 +30,11 @@ class StorageManager {
         userDefaults.set(data, forKey: valuteKey)
     }
     
+    func rewriteValutes(valutes: [Valute]) {
+        guard let data = try? JSONEncoder().encode(valutes) else { return }
+        userDefaults.set(data, forKey: valuteKey)
+    }
+    
     func fetchValutes() -> [Valute] {
         guard let data = userDefaults.object(forKey: valuteKey) as? Data else { return [] }
         guard let valutes = try? JSONDecoder().decode([Valute].self, from: data) else { return [] }
@@ -37,9 +42,7 @@ class StorageManager {
     }
     
     func saveSelectValutes(selectValutes: [Valute]) {
-        var valutes = fetchSelectValutes()
-        valutes = selectValutes
-        guard let data = try? JSONEncoder().encode(valutes) else { return }
+        guard let data = try? JSONEncoder().encode(selectValutes) else { return }
         userDefaults.set(data, forKey: selectValuteKey)
     }
     
