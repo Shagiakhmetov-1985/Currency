@@ -113,6 +113,11 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
         return calculation
     }
     
+    private func correctValue(nominal: Int, value: Double) -> Double {
+        let calculation = value / Double(nominal)
+        return calculation
+    }
+    
     private func setupDataTapCell(index: Int, textFieldText: String) {
         let charCodeAPI = dataFromAPI.map({ $0.CharCode })
         
@@ -128,8 +133,9 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
             guard let nominal = dataFromAPI[indexCharCode].Nominal else { return }
             guard let value = dataFromAPI[indexCharCode].Value else { return }
             
-            dataExchanges[index].nominal = nominal
-            dataExchanges[index].value = value
+            dataExchanges[index].nominal = nominal > 1 ? 1 : nominal
+            dataExchanges[index].value = nominal > 1 ?
+            correctValue(nominal: nominal, value: value) : value
             dataExchanges[index].currentValue = currentValueSetup(text: textFieldText)
             
         }
@@ -147,22 +153,28 @@ class CurrentDataViewController: UITableViewController, UITextFieldDelegate {
                 guard let indexCharCode = charCodeAPI.firstIndex(of: dataExchanges[indexFromMain].abbreviation) else { return }
                 guard let nominal = dataFromAPI[indexCharCode].Nominal else { return }
                 guard let value = dataFromAPI[indexCharCode].Value else { return }
+                
                 let currentValue = calculationCurrentValue(
                     firstValue: dataExchanges[index].value,
-                    otherValue: value,
+                    otherValue: nominal > 1 ?
+                    correctValue(nominal: nominal, value: value) : value,
                     multiplier: dataExchanges[index].currentValue
                 )
                 
-                dataExchanges[indexFromMain].nominal = nominal
-                dataExchanges[indexFromMain].value = value
+                dataExchanges[indexFromMain].nominal = nominal > 1 ? 1 : nominal
+                dataExchanges[indexFromMain].value = nominal > 1 ?
+                correctValue(nominal: nominal, value: value) : value
                 dataExchanges[indexFromMain].currentValue = currentValue
 
             case let flag where !(flag == dataExchanges[index].flag) && flag == "russia":
                 
                 guard let indexCharCode = charCodeAPI.firstIndex(of: dataExchanges[index].abbreviation) else { return }
+                guard let nominal = dataFromAPI[indexCharCode].Nominal else { return }
                 guard let value = dataFromAPI[indexCharCode].Value else { return }
+                
                 let currentValue = calculationRussianValue(
-                    value: value,
+                    value: nominal > 1 ?
+                    correctValue(nominal: nominal, value: value) : value,
                     multiplier: dataExchanges[index].currentValue
                 )
                 
